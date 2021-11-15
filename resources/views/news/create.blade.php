@@ -17,8 +17,7 @@
                 {{session('message')}}
             </div>
         @endif
-
-        {!! Form::model($news, array('action' => 'newController@index')) !!}
+        {!! Form::model($news, array('action' => 'newController@store', 'files' => true, 'class' => 'form')) !!}
         <div class="form-group">
             {!! Form::label('summary', 'Header:') !!}
             {!! Form::text('summary', '', session('errors') ? array('class' => 'form-control is-invalid')  : array('class' => 'form-control')) !!}
@@ -32,6 +31,10 @@
         <div class="form-group">
             {!! Form::label('fullDescription', 'Short Text:') !!}
             {!! Form::textarea('fullDescription', '', session('errors') ? array('class' => 'form-control is-invalid', 'cols' => '', 'rows' => '')  : array('class' => 'form-control col-md-10', 'cols' => '', 'rows' => '')) !!}
+        </div>
+        <div class="mb-3">
+            {!! Form::label('imagePath', 'Add image:', array('class' => 'form-label')) !!}
+            {!! Form::file('imagePath', array('class' => 'form-control')) !!}
         </div>
         <br>
         <button class="btn btn-info" type="submit">Add</button>

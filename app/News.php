@@ -8,5 +8,5 @@ class News extends Model
 {
     protected $primaryKey='id';
     protected $table='news';
-    protected $fillable = ['summary', 'short_description', 'full_description', 'created_at', 'updated_at'];
+    protected $fillable = ['summary', 'short_description', 'full_description', 'imagePath', 'created_at', 'updated_at'];
 }

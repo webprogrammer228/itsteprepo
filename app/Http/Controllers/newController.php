@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\News;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class newController extends Controller
@@ -25,7 +26,7 @@ class newController extends Controller
      */
     public function create()
     {
-        //
+       //
     }
 
     /**
@@ -43,6 +44,19 @@ class newController extends Controller
         ]);
 
         $new = new News();
+        $fname = $request->file('imagePath');
+
+        if ($fname != null)
+        {
+            $originalname = $request->file('imagePath')->getClientOriginalName();
+            $request->file('imagePath')->move(public_path().'/images', $originalname);
+            $new->imagePath = '/images/'.$originalname;
+        }
+        else {
+            $new->imagePath = '';
+        }
+
+
         $new->summary = $request->summary;
         $new->short_description = $request->shortDescription;
         $new->full_description = $request->fullDescription;
@@ -73,7 +87,7 @@ class newController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**

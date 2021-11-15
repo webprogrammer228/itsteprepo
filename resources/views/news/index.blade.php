@@ -8,10 +8,11 @@
             </div>
             @foreach($news as $new)
                 <hr>
-                <h2 class="alert-primary">{{$new->summary}}</h2>
-                <h4>{{$new->short_description}}</h4>
+                <h1 class="alert-primary">{{$new->summary}}</h1>
+                <p>{{$new->short_description}}</p>
+                <a href="{{url("index/$new->id")}}">К новости</a>
                 <hr>
-                @endforeach
+            @endforeach
 
         </div>
     </div>

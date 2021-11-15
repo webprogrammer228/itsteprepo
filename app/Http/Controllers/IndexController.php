@@ -49,7 +49,8 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        //
+        $news = News::where('id', '=', $id)->get();
+        return view('news.new', ['news' => $news]);
     }
 
     /**
@@ -60,7 +61,8 @@ class IndexController extends Controller
      */
     public function edit($id)
     {
-        //
+        $new = News::find($id);
+        return view('news.edit')->with('news', $new);
     }
 
     /**
@@ -72,7 +74,29 @@ class IndexController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validatedData = $request->validate([
+            'summary' => 'required|max:50',
+            'shortDescription' => 'required|max:150',
+            'fullDescription' => 'required|max:5000'
+        ]);
+
+        $new = News::find($id);
+        $fname = $request->file('imagePath');
+        $new->summary = $request->summary;
+        $new->short_description = $request->shortDescription;
+        $new->full_description = $request->fullDescription;
+
+        if ($fname != null)
+        {
+            $originalname = $request->file('imagePath')->getClientOriginalName();
+            $request->file('imagePath')->move(public_path().'/images', $originalname);
+            $new->imagePath = '/images/'.$originalname;
+        }
+        else {
+            $new->imagePath = '';
+        }
+        $new->save();
+        return redirect('index/'.$new->id);
     }
 
     /**

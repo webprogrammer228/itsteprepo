@@ -19,6 +19,7 @@ class CreateTable extends Migration
             $table->text('summary');
             $table->text('short_description');
             $table->text('full_description');
+            $table->string('imagePath', 255)->nullable();
             $table->timestamps();
         });
     }
